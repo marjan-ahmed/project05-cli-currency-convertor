@@ -1,5 +1,6 @@
+#!usr/bin/env node
 import inquirer from "inquirer";
-import chalk, { Chalk } from "chalk";
+import chalk from "chalk";
 
 //PKR = Pakistani Rupee (Rs)
 //USD = United State Dollar ($)
@@ -7,88 +8,49 @@ import chalk, { Chalk } from "chalk";
 //SAR = Saudi Arabian Riyal (ر. س)
 //EUR = The European Union (€)
 
-console.log(chalk.bgYellow("=====-----------------CURRENCY CONVERTOR-------------------====="));
-const conversion = {
 
-    "PKR": {
-        "PKR" : 1,
-        "USD" : 0.0036,
-        "GPB" : 0.0028,
-        "SAR" : 0.013,
-        "EUR" : 0.0033
-    },
-
-    "USD": {
-        "USD" : 1,
-        "PKR" : 278.40,
-        "GBP" : 0.79,
-        "SAR" : 3.75,
-        "EUR" : 0.92 
-    },
-
-    "GBP": {
-        "GBP" : 1,
-        "PKR" : 351.02,
-        "USD" : 1.26,
-        "SAR" : 4.74,
-        'EUR' : 1.17
-    },
-
-    'SAR': {
-        "SAR" : 1,
-        "PKR" : 74.09,
-        "USD" : 0.27,
-        "GBP" : 0.21,
-        "EUR" : 0.25
-    },
-
-    "EUR": {
-        "EUR" : 1,
-        "PKR" : 301.15,
-        "USD" : 1.08,
-        "GBP" : 0.86,
-        "SAR" : 4.07
-    }
-    
+const currencies : any = {
+    USD: 1, //USD is our base currency
+    PKR: 277.57,
+    GBP: 0.79,
+    SAR: 3.75,
+    EUR: 0.92
 };
 
-const choice: {
+console.log(chalk.green.underline.bold("                --------***-------____WELCOME TO CURRENCY CONVERTOR (BY MARJAN AHMED)--------***-------____                "));
+console.log(chalk.yellow.bold("             *---****---*                        *---****---*                        *---****---* "));
+console.log(chalk.yellowBright("-----------------------------*___****___*                              *___****___*--------------------------------"))
+console.log("\n");
 
-    from: "PKR" | "USD" | "GBP" | "SAR" | "EUR",
-     to: string,
-      amount: number
-    } = await inquirer.prompt(
+const userAns = await inquirer.prompt(
     [
         {
             name: "from",
             type: "list",
-            option: ['PKR', 'USD', 'GBP', 'SAR', 'EUR'],
-            message: "Enter your currency to convert:"
+            message: "Enter your Currency to convert:",
+            choices: ['PKR','USD','EUR','GBP','SAR']
         },
-
         {
             name: "to",
             type: "list",
-            option: ['PKR', 'USD', 'GBP', 'SAR', 'EUR'],
-            message: "Enter your conversion currency:"
+            message: "Enter your convertional currency:",
+            choices: ['PKR','USD','EUR','GBP','SAR']
         },
-
         {
             name: "amount",
             type: "number",
-            message: "Enter your conversion to convert:"
+            message: "Enter your amount:"
         }
     ]
 );
 
-const {from, to, amount} = choice;
+//Calculation
+let formAmount:number = currencies[userAns.from];
+let toAmount:number = currencies[userAns.to];
+const baseAmount:number = userAns.amount / formAmount;
+const converAmount:number = baseAmount * toAmount;
 
-if(from && to && amount){
+//Print
+console.log(baseAmount);
+console.log(converAmount);
 
-    let result = conversion[from][to] * amount;
-    console.log(chalk.blue(`Your convertion from ${from} to ${to} is ${result}`));
-
-}
-else{
-    console.log(chalk.red("Invalid Choice or input"));
-};

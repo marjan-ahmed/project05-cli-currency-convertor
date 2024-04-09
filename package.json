@@ -1,12 +1,9 @@
 {
-  "name": "@marjanahmed/project05-cli-currency-convertor",
-  "version": "4.0.0",
+  "name": "@marjanahmed/currency-convertor",
+  "version": "2.4.0",
   "description": "This is  cli based currency convertor app.",
   "main": "main.js",
   "type": "module",
-  "bin" :{
-    "cli-game" : "currency-convertor"
-  },
   "publishConfig": {
     "access": "public"
   },
@@ -14,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Marjan Ahmed",
   "license": "MIT",
   "dependencies": {
     "@types/node": "^20.12.4",
